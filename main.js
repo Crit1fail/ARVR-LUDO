@@ -1,26 +1,36 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+
+window.startGame = function() {
+ 
+    document.getElementById('menu').style.display = 'none';
+    
+    // Start the game 
+    initGame(); 
+}
+
 // Create a new scene
+function initGame () {
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true; // Enable shadow mapping for lighting
+renderer.shadowMap.enabled = true; // Enables the  shadow mapping for lighting
 renderer.setAnimationLoop(animate);
 document.body.appendChild(renderer.domElement);
 
-// Load the Ludo board texture from the provided image
+// Loads the Ludo board texture from textures
 const textureLoader = new THREE.TextureLoader();
 const boardTexture = textureLoader.load('textures/board.jpg'); // Path to your board image
 
-// Create the 3D Ludo board with depth (extrusion for thickness)
+// Creates the 3D Ludo board with depth (extrusion for thickness)
 const boardGeometry = new THREE.BoxGeometry(10, 0.5, 10); // Width, height, depth
 const boardMaterial = new THREE.MeshPhongMaterial({ map: boardTexture });
 const board = new THREE.Mesh(boardGeometry, boardMaterial);
 board.receiveShadow = true; // Board receives shadows
-board.castShadow = true; // Board casts shadows on the mat
+board.castShadow = true; // board casting shadows on the mat
 scene.add(board);
 
 // Create a larger mat (plane) below the board
@@ -75,15 +85,15 @@ createCoin(0xff0000, -offset + 2, -offset + 2);
 
 // Load dice face textures
 const diceFaceTextures = [
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/one.png') }), // 1 dot
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/two.png') }), // 2 dots
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/three.png') }), // 3 dots
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/four.png') }), // 4 dots
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/five.png') }), // 5 dots
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/six.png') })  // 6 dots
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/one.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/two.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/three.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/four.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/five.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/six.png') })  
 ];
 
-// Create dice with textures
+// Creating dice with textures
 const diceGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
 const dice = new THREE.Mesh(diceGeometry, diceFaceTextures);
 dice.position.set(0, 2, 0); // Dice above the board
@@ -107,13 +117,13 @@ camera.lookAt(0, 0, 0);
 
 // Add orbit controls for rotating the view
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // Smooth rotation
+controls.enableDamping = true; // makes rotation smoother
 controls.dampingFactor = 0.05;
-controls.maxPolarAngle = Math.PI; // Allow looking from above and below the board
+controls.maxPolarAngle = Math.PI; // Allows looking from above and below the board
 
 // Mouse movement event listener
 window.addEventListener('mousemove', (event) => {
-    // Calculate normalized mouse coordinates (-1 to 1)
+   
     const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
     const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -134,4 +144,5 @@ function animate() {
 
     controls.update(); // Update controls
     renderer.render(scene, camera);
+}
 }
