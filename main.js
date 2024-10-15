@@ -23,7 +23,7 @@ document.body.appendChild(renderer.domElement);
 
 // Loads the Ludo board texture from textures
 const textureLoader = new THREE.TextureLoader();
-const boardTexture = textureLoader.load('textures/board.jpg'); // Path to your board image
+const boardTexture = textureLoader.load('public/static/images/textures/board.jpg'); // Path to your board image
 
 // Creates the 3D Ludo board with depth (extrusion for thickness)
 const boardGeometry = new THREE.BoxGeometry(10, 0.5, 10); // Width, height, depth
@@ -85,12 +85,12 @@ createCoin(0xff0000, -offset + 2, -offset + 2);
 
 // Load dice face textures
 const diceFaceTextures = [
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/one.png') }), 
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/two.png') }), 
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/three.png') }), 
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/four.png') }), 
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/five.png') }), 
-    new THREE.MeshPhongMaterial({ map: textureLoader.load('textures/six.png') })  
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('public/static/images/textures/one.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('public/static/images/textures/two.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('public/static/images/textures/three.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('public/static/images/textures/four.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('public/static/images/textures/five.png') }), 
+    new THREE.MeshPhongMaterial({ map: textureLoader.load('public/static/images/textures/six.png') })  
 ];
 
 // Creating dice with textures
