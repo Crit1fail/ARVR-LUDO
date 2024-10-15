@@ -5,7 +5,7 @@ This project is a 3D implementation of the classic board game Ludo, built using 
 
 The objective of this game is to recreate the traditional Ludo experience in a browser with 3D visuals, where players can roll dice, move their pieces across the board, and try to get all their pieces to the end before others.
 
-Features:
+**Features:**
 
 -Fully rendered 3D Ludo board and pieces.
 
@@ -47,7 +47,7 @@ Roll the dice to move your coins.
 The objective is to get all your coins to the home before other players.
 Multiplayer mode can be added by connecting players over a network.
 
-**Code Overview**
+# Code Overview
 
 -index.html
 This file serves as the starting point for the game. It includes a basic Play Game menu and loads the Three.js library.
