@@ -1,3 +1,4 @@
+// Function to compare two arrays for equality
 function arraysEqual(a, b) {
     if (a === b) return true;
     if (a == null || b == null) return false;
@@ -11,7 +12,7 @@ function arraysEqual(a, b) {
 
     return true;
 }
-
+// Function to create a deep copy of an array
 function copyArray(array) {
-    return JSON.parse(JSON.stringify(array));
+    return JSON.parse(JSON.stringify(array));// Serialize and deserialize for deep cloning
 }
