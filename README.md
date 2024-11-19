@@ -1,9 +1,9 @@
 # ARVR-LUDO
-**Ludo Game - 3D using Three.js**
+**Ludo Game - 3D **
 
-This project is a 3D implementation of the classic board game Ludo, built using Three.js. The game features an interactive 3D Ludo board, pieces, and a dice that can be rolled to play the game.
+This project is a 3D implementation of the classic board game Ludos. The game features an interactive 3D Ludo board, pieces, and a dice that can be rolled to play the game.
 
-The objective of this game is to recreate the traditional Ludo experience in a browser with 3D visuals, where players can roll dice, move their pieces across the board, and try to get all their pieces to the end before others.
+The objective of this game is to recreate the traditional Ludo experience in a browser with 3D visuals, where players can roll dice, select the pieces that will move across the board, and try to get all their pieces to the end before others.
 
 **Features:**
 
