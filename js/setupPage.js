@@ -1,12 +1,15 @@
+// Querying the initial setup elements from the DOM
 const popup = document.querySelector('.initial-setup');
 const h1 = document.querySelector('h1');
 
+// Buttons for adding/removing opponents and starting the game
 const addOpponentButton = document.querySelector('.add-opponent');
 const deleteOpponentButton = document.querySelector('.delete-opponent');
 const playButton = document.querySelector('.play');
 
 const opponentsContainer = document.querySelector('.opponents-container');
 
+// Toggles the display of the instruction popup
 function toggleInstructionPopup() {
     const instructionPopup = document.getElementById('instructionPopup');
     instructionPopup.classList.toggle('show-instruction');
@@ -14,6 +17,7 @@ function toggleInstructionPopup() {
 
 let playersNumber = 4;
 
+// Event listeners to update the number of players based on user selection
 document.getElementById('players-2').addEventListener('change', () => {
     playersNumber = 2;
     removeUnneededOpponents();
@@ -27,6 +31,8 @@ document.getElementById('players-4').addEventListener('change', () => {
     removeUnneededOpponents();
 });
 
+
+// Add a new computer opponent to the list, if the limit is not exceeded
 addOpponentButton.addEventListener('click', () => {
     const opponentDivs = document.querySelectorAll('.opponent');
     if (opponentDivs.length < playersNumber - 1) {
@@ -48,6 +54,7 @@ addOpponentButton.addEventListener('click', () => {
     }
 });
 
+// Remove the last added opponent
 deleteOpponentButton.addEventListener('click', () => {
     const lastChild = opponentsContainer.lastElementChild;
     if (lastChild.classList.contains('opponent')) {
@@ -67,6 +74,7 @@ playButton.addEventListener('click', () => {
     setPlayers(players, computerLevels);
 });
 
+// Removes extra computer opponents when player count changes
 function removeUnneededOpponents() {
     const opponentDivs = document.querySelectorAll('.opponent');
     for (let i = playersNumber - 1; i < opponentDivs.length; i++) {
@@ -77,6 +85,7 @@ function removeUnneededOpponents() {
     }
 }
 
+// Hides the setup page and displays the main game interface
 function hideSetupPage() {
     popup.style.display = 'none';
     main.style.opacity = 1;
@@ -86,5 +95,5 @@ function hideSetupPage() {
     h1.style.left = '10rem';
     h1.style.fontSize = '2rem';
 }
-
+// Reload the game when the title is clicked
 h1.addEventListener('click', () => location.reload());
