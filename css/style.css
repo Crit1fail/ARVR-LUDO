@@ -1,3 +1,5 @@
+/* Global styles and color variables for consistent theming across the application */
+
 :root {
     --brown-bg: #e6ccb2;
     --brown-text: #7f5539;
