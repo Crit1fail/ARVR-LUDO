@@ -70,3 +70,5 @@ main.js
 -Game Logic: Implementing complete Ludo game rules.
 
 -Improved UI: Adding a score tracker and player turn indication.
+
+-Ability to Add bots to play with along with difficulty of bots selection.
