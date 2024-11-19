@@ -1,4 +1,4 @@
-
+// Handles dice roll animations and updates the dice's rotation to display the result.
 rotations = [
     [0, 0],
     [-90, 0],
