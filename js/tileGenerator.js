@@ -1,12 +1,14 @@
 let code = '';
 
-// board tiles
+// Generate the game board tiles
 for (let row = 0; row < 15; row++) {
     code += `<!-- row #${row} -->\n`;
 
     for (let col = 0; col < 15; col++) {
+        // PositionInterpolator and timeSensor for token movement
         code += `
         <transform translation='${col} 0 ${row}'>
+    
         <shape>
             <appearance>
                 <material id="tile-${row}-${col}" diffuseColor='0.8 0.8 0.8'></material>
@@ -33,6 +35,8 @@ for (let player of ['blue', 'green', 'red', 'yellow']) {
         `
     }
 }
+
+// Append the generated code to the scene element
 
 const scene = document.getElementsByTagName('scene')[0];
 scene.innerHTML += code;
