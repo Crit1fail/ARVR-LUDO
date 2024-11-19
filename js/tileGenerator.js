@@ -21,7 +21,7 @@ for (let row = 0; row < 15; row++) {
     }
 }
 
-// token animations
+//The animations for the pawns
 for (let player of ['blue', 'green', 'red', 'yellow']) {
     for (let i = 1; i <= 4; i++) {
         code += `
