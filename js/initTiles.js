@@ -8,6 +8,7 @@ const X = '#ffd6b1'; // regular tile, alternating - darker
 const Z = '#faf1eb'; // regular tile, alternating - lighter
 const S = '#b1b3ff'; // safe spaces
 
+//Assign colours to the tiles
 const tileColors = [
     [B, B, B, B, B, B, X, Z, X, Y, Y, Y, Y, Y, Y],
     [B, Z, Z, Z, Z, B, Z, Y, Y, Y, Z, Z, Z, Z, Y],
@@ -26,7 +27,7 @@ const tileColors = [
     [R, R, R, R, R, R, X, Z, X, G, G, G, G, G, G],
 ];
 
-
+// Iterate through the 15x15 grid to assign the corresponding color to each tile based on the tileColors array
 for (let row = 0; row < 15; row++) {
     for (let col = 0; col < 15; col++) {
         document.getElementById(`tile-${row}-${col}`).setAttribute('diffuseColor', tileColors[row][col]);
