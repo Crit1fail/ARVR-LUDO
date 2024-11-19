@@ -72,3 +72,13 @@ main.js
 -Improved UI: Adding a score tracker and player turn indication.
 
 -Ability to Add bots to play with along with difficulty of bots selection.
+
+
+**How To Run**
+
+- After Cloning the repository, open the folder on VS Code. Then open the terminal on VS code and run the command
+  "npm install -g http-server"
+-After running this run the command
+"http-server"
+-Then click on any one of the links that will be shown.
+-Enjoy playing!!
