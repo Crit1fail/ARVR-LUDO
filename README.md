@@ -1,5 +1,5 @@
 # ARVR-LUDO
-**Ludo Game - 3D Multiplayer using Three.js**
+**Ludo Game - 3D using Three.js**
 
 This project is a 3D implementation of the classic board game Ludo, built using Three.js. The game features an interactive 3D Ludo board, pieces, and a dice that can be rolled to play the game.
 
@@ -31,9 +31,7 @@ The objective of this game is to recreate the traditional Ludo experience in a b
 
 -index.html: The main page with a simple start menu.
 
--main.js: Contains the core game logic using Three.js.
-
--textures/: Store your textures here, such as the Ludo board and dice faces.
+-assets/: Store your textures here, such as the Ludo board and dice faces.
 
 **Running the Game**
 Open the index.html file in your browser to launch the game.
@@ -45,7 +43,7 @@ The rules follow the traditional Ludo format:
 Each player is assigned a set of colored coins.
 Roll the dice to move your coins.
 The objective is to get all your coins to the home before other players.
-Multiplayer mode can be added by connecting players over a network.
+Multiplayer mode can be added on same device.
 
 # Code Overview
 
@@ -61,15 +59,13 @@ main.js
 
 -Lighting: Ambient and directional lights create realistic shadow effects. The directional light moves based on the mouse position.
 
--Coins: Player coins are positioned in a 4x4 grid, color-coded for each player.
+-Pawns: Player coins are positioned in a 4x4 grid, color-coded for each player.
 
 -Dice: Textured dice with animated rotation for a dynamic feel.
 
 -Controls: OrbitControls allow users to rotate the board, offering a 3D perspective.
 
 **Future Enhancements**
-
--Multiplayer Support: Integrating WebSockets or a multiplayer backend.
 
 -Game Logic: Implementing complete Ludo game rules.
 
