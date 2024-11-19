@@ -1,6 +1,7 @@
 // Defines game constants such as player colors, paths, starting positions, and safe tiles on the 3D board.
 const allPossiblePlayers = ['blue', 'yellow', 'green', 'red'];
 
+//Define the paths that each colour could take
 const playerPaths = {
     'red': [
         [13, 6],
@@ -240,6 +241,7 @@ const playerPaths = {
     ],
 };
 
+//Define the satrt positions for tokens of each colour
 const startPositions = {
     "red": [
         [12, 2],
@@ -270,6 +272,7 @@ const startPositions = {
     ],
 };
 
+//Define the positions of the safe tiles
 const safeTiles = [
     [2, 6],
     [8, 2],
@@ -277,5 +280,5 @@ const safeTiles = [
     [12, 8],
 ].concat(Object.values(playerPaths).map(path => path[0]));
 
-
+//Define the length of the dice roll
 const diceAnimationLength = 2000;
