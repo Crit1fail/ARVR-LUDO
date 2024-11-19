@@ -62,6 +62,7 @@ deleteOpponentButton.addEventListener('click', () => {
     }
 });
 
+// Add an event listener to the play button to initialize players based on the selected number of participants
 playButton.addEventListener('click', () => {
     const players = playersNumber === 2
         ? [allPossiblePlayers[0], allPossiblePlayers[2]]
