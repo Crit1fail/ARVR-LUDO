@@ -11,14 +11,22 @@ const tokens = {};
 let game;
 
 class Game {
+    /**
+     * Constructor to initialize the game state.
+     * @param {Array} players - List of player colors participating in the game.
+     * @param {Array} computerOpponentLevels - Difficulty levels for AI players (Easy/Hard).
+     * @param {Object} tokenPositions - Initial token positions for all players.
+     */
 
     constructor(players, computerOpponentLevels = [], tokenPositons = undefined) {
+        // Initialize player data
         this.players = players;
         this.numberOfPlayers = players.length;
         this.currentPlayerIndex = 0;
         this.currentPossibleMoves = [];
         this.lastRolledValue = 0;
 
+        // Set initial token positions
         this.tokenPositons = {};
         if (tokenPositons === undefined) {
             for (let player of this.players) {
@@ -36,6 +44,7 @@ class Game {
                 const token = document.getElementById(id);
                 tokens[player].push(token);
 
+                // Set click event for human players
                 document.querySelector(`#${player}-token-${i + 1}__pawn-shape`).addEventListener('click', () => {
                     if (game.isCurrentPlayerComputerOpponent()) return;
                     game.moveToken(player, i);
@@ -53,7 +62,7 @@ class Game {
             }
         }
 
-        // hide tokens of colors that are not used because of the set number of players
+        // Hide tokens of colors that are not used because of the set number of players
         for (let player of allPossiblePlayers) {
             if (this.players.findIndex(possiblePlayer => possiblePlayer === player) !== -1) {
                 for (let i = 0; i < 4; i++) {
