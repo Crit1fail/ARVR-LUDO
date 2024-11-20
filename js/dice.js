@@ -8,6 +8,7 @@ rotations = [
     [180, 0],
 ];
 
+//Function to animate the rolling of the die
 function rollDiceAnimate(number) {
     dice.style.animation = `roll ${diceAnimationLength}ms ease-in-out`;
 
