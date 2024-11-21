@@ -1,3 +1,4 @@
+// Get references to various HTML elements
 const infoDiv = document.getElementById('info');
 const currentPlayerDiv = document.getElementById('current-player');
 const rollDiceButton = document.getElementById('roll-button');
@@ -6,10 +7,13 @@ const side = document.querySelector('side');
 const main = document.querySelector('main');
 const dice = document.querySelector('.dice');
 
+// Store references to all the tokens
 const tokens = {};
 
+// Initialize the game object
 let game;
 
+// Game class to manage the game state
 class Game {
     /**
      * Constructor to initialize the game state.
@@ -17,7 +21,6 @@ class Game {
      * @param {Array} computerOpponentLevels - Difficulty levels for AI players (Easy/Hard).
      * @param {Object} tokenPositions - Initial token positions for all players.
      */
-
     constructor(players, computerOpponentLevels = [], tokenPositons = undefined) {
         // Initialize player data
         this.players = players;
@@ -29,6 +32,7 @@ class Game {
         // Set initial token positions
         this.tokenPositons = {};
         if (tokenPositons === undefined) {
+            // If no positions are provided, set all tokens at the start position
             for (let player of this.players) {
                 this.tokenPositons[player] = [-6, -6, -6, -6];
             }
@@ -36,7 +40,7 @@ class Game {
             this.tokenPositons = tokenPositons;
         }
 
-        // get references to tokens and set their callbacks
+        // Get references to tokens and set their click event handlers
         for (let player of this.players) {
             tokens[player] = [];
             for (let i = 0; i < 4; i++) {
@@ -50,6 +54,7 @@ class Game {
                     game.moveToken(player, i);
                 });
 
+                // Set initial token positions
                 const startPosition = startPositions[player][i];
                 const position = this.tokenPositons[player][i];
                 if (position === -6) {
@@ -75,7 +80,7 @@ class Game {
             }
         }
 
-        // create computer components
+        // Create computer opponents
         this.computerOpponents = {};
         this.computerOpponentIndices = []; // which of the indices of players are robots
         for (let i = 0; i < computerOpponentLevels.length; i++) {
@@ -85,14 +90,17 @@ class Game {
             document.querySelector(`.scoreboard > .${this.players[index]} .dot`).dataset.ai = 'true';
         }
 
+        // Update player scores
         for (let player of this.players) {
             this.updatePlayerScore(player);
         }
     }
 
     /**
-    *  @return true if any move is possible after the roll, false otherwise
-    * */;
+     * Roll the dice and return a promise that resolves when the animation is complete.
+     * @param {number} [value] - Optional dice roll value, if not provided, a random value will be used.
+     * @returns {Promise<boolean>} - True if any move is possible after the roll, false otherwise.
+     */
     rollDice(value) {
         const rolledValue = value ?? Math.floor(Math.random() * 6) + 1;
         rollDiceAnimate(rolledValue);
@@ -102,8 +110,9 @@ class Game {
                 infoDiv.innerText = `Rolled: ${rolledValue}`;
                 this.lastRolledValue = rolledValue;
 
-
+                // Check if any moves are possible after the roll
                 if (!this.checkPossibleMoves()) {
+                    // If no moves are possible, move to the next player
                     setTimeout(() => this.nextPlayer(), 300);
                     resolve(false);
                 }
@@ -114,8 +123,9 @@ class Game {
     }
 
     /**
-    *  @return true if any move is possible, false otherwise
-    * */;
+     * Check if any moves are possible for the current player based on the last dice roll.
+     * @returns {boolean} - True if any move is possible, false otherwise.
+     */
     checkPossibleMoves() {
         this.clearPossibleMoves();
         let isAnyPossible = false;
@@ -128,6 +138,7 @@ class Game {
             if (newPosition >= 0 && newPosition < playerPaths[player].length) {
                 isAnyPossible = true;
 
+                // Highlight the token to indicate a possible move
                 document.querySelector(`#${player}-token-${i + 1}__pawn-material`).setAttribute('emissiveColor', '0.5 0.5 0.5');
             }
         }
@@ -135,10 +146,12 @@ class Game {
         return isAnyPossible;
     }
 
+    // Check if the current player is a computer opponent
     isCurrentPlayerComputerOpponent() {
         return this.computerOpponentIndices.includes(this.currentPlayerIndex);
     }
 
+    // Move to the next player
     nextPlayer() {
         this.currentPlayerIndex++;
         this.currentPlayerIndex %= this.numberOfPlayers;
@@ -146,12 +159,13 @@ class Game {
 
         currentPlayerDiv.innerText = this.players[this.currentPlayerIndex];
 
+        // Update the UI to reflect the new current player
         root.style.setProperty('--background-color', `var(--${this.players[this.currentPlayerIndex]}-bg)`);
         root.style.setProperty('--text-color', `var(--${this.players[this.currentPlayerIndex]}-text)`);
-
         viewPoints[this.players[this.currentPlayerIndex]].setAttribute('set_bind', 'true');
 
         if (this.isCurrentPlayerComputerOpponent()) {
+            // Disable the roll button for computer opponents
             rollDiceButton.style.opacity = '0.5';
             this.moveComputerOpponent(this.currentPlayerIndex);
         } else {
@@ -160,8 +174,11 @@ class Game {
     }
 
     /**
-    *  @return true if the token was moved successfully, false otherwise
-    * */;
+     * Move a token for the current player.
+     * @param {string} player - The color of the player.
+     * @param {number} i - The index of the token to move.
+     * @returns {boolean} - True if the token was moved successfully, false otherwise.
+     */
     moveToken(player, i) {
         const token = tokens[player][i];
 
@@ -180,7 +197,7 @@ class Game {
 
         const newTile = playerPaths[player][newPosition];
 
-        // check for sending opponent players home
+        // Check for sending opponent players home
         if (safeTiles.findIndex(safeTile => arraysEqual(safeTile, newTile)) === -1) {
             for (let otherPlayer of this.players) {
                 if (otherPlayer === player) continue;
@@ -200,6 +217,7 @@ class Game {
                     this.tokenPositons[otherPlayer][otherTileIndex] = -6;
                     const startPosition = this.getFreeStartPosition(otherPlayer);
 
+                    // Start the animation to move the other player's token back to the start
                     setTimeout(() => {
                         let keyValue = `${newTile[1]} 1 ${newTile[0]}  ${newTile[1]} 5 ${newTile[0]}  ${startPosition[1]} 1 ${startPosition[0]}`;
                         let key = '0 0.2 1';
@@ -222,7 +240,7 @@ class Game {
             }
         }
 
-        // set up and run move animation
+        // Set up and run the move animation for the current token
         let movesCount = 0;
         let keyValue = `${oldTile[1]} 1 ${oldTile[0]}`;
 
@@ -249,6 +267,7 @@ class Game {
         timeSensor.setAttribute('cycleInterval', `${movesCount / 4}`);
         timeSensor.setAttribute('starttime', time);
 
+        // Update the token position and distribution after the animation
         setTimeout(() => {
             tokens[player][i].setAttribute('translation', `${newPosition[1]} 1 ${newPosition[0]}`);
             if (oldTile) this.distributeTokensOnOneTile(oldTile);
@@ -273,9 +292,9 @@ class Game {
         return true;
     }
 
+    // Get a free start position for a player's token
     getFreeStartPosition(player) {
         const takenStartPositions = tokens[player].map(token => {
-            // TODO: make it not dependent on the translation attribute in the visualization ;_;
             const translation = token.getAttribute('translation').split(' ');
             return [parseInt(translation[2]), parseInt(translation[0])];
         });
@@ -287,6 +306,7 @@ class Game {
         }
     }
 
+    // Move a computer opponent
     moveComputerOpponent(index) {
         setTimeout(
             () => infoDiv.innerText = 'Computer\'s turn',
@@ -299,11 +319,13 @@ class Game {
         );
     }
 
+    // Reset the last rolled value
     resetRolledValue() {
         this.lastRolledValue = 0;
         infoDiv.innerText = this.isCurrentPlayerComputerOpponent() ? 'Computer\'s turn' : 'Roll the dice!';
     }
 
+    // Clear the possible moves highlights
     clearPossibleMoves() {
         for (let player of this.players) {
             for (let i = 0; i < 4; i++) {
@@ -312,6 +334,7 @@ class Game {
         }
     }
 
+    // Distribute tokens on a single tile
     distributeTokensOnOneTile(tile) {
         const allTokensOnTile = [];
 
@@ -340,6 +363,7 @@ class Game {
         }
     }
 
+    // Check if a player has won the game
     checkForGameOver(player) {
         for (let i = 0; i < 4; i++) {
             if (this.tokenPositons[player][i] !== playerPaths[player].length - 1) {
