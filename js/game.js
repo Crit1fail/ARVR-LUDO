@@ -377,6 +377,7 @@ class Game {
         return true;
     }
 
+    //Update the scores of the players
     updatePlayerScore(player) {
         scoreDivs[player].innerText = this.getPlayerScore(player);
     }
